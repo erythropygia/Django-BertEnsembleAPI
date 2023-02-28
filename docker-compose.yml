@@ -1,0 +1,15 @@
+services:
+  app:
+    container_name: app
+    image: app
+    build:
+      context: .
+      dockerfile: python.Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ".:/cer-nlp"
+    environment:
+      - DJANGO_SETTINGS_MODULE=BertAPI.settings
+    tty: true
+    restart: unless-stopped

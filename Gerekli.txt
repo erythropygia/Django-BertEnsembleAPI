@@ -1,0 +1,19 @@
+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 //github repo key
+docker system prune -a //docker reset
+sudo chown -R stoupe cer-nlp // klasör yazma engeli kaldırma
+export PYTHONPATH="${PYTHONPATH}:/cer-nlp/" //python package bulunamazsa
+
+source tools/start_containers.sh //containerleri başlatır
+source tools/run_cli.sh //projeyi command line'da başlatır
+
+
+django-admin startproject BertAPI // django projesi oluşturur
+django-admin startapp API // django içerisinde proje oluşturur
+
+
+python manage.py makemigrations
+python manage.py migrate // settings.py'da değişiklik yaptıktan sonra
+
+python3 manage.py runserver 0.0.0.0:8000 //django localhost için
+
+python3 manage.py createsuperuser //django admin hesabı oluşturmak için

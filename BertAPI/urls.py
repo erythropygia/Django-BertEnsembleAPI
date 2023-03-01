@@ -19,8 +19,12 @@ from django.urls import path
 from django.urls import include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
-from BertAPI.API import views
+
+
+from BertAPI.API.views import process_text
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('process/', process_text, name='process')
 ]

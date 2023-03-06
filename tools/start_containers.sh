@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 ### CONFIG ###
-CONTAINER_NAME="app"
+CONTAINER_NAME="cer-nlp"
 DOCKER_FILE="docker-compose.yml"
 
 docker-compose stop

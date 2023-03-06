@@ -9,4 +9,4 @@ RUN pip install -U pip && pip install -r requirements.txt
 
 WORKDIR /cer-nlp
 
-RUN export PYTHONPATH="${PYTHONPATH}:/cer-nlp/"
+ENV PYTHONPATH="${PYTHONPATH}:/cer-nlp"

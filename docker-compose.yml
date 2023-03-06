@@ -1,7 +1,7 @@
 services:
   app:
-    container_name: app
-    image: app
+    container_name: cer-nlp
+    image: cer-nlp
     build:
       context: .
       dockerfile: python.Dockerfile

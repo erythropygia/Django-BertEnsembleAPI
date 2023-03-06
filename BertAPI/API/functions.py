@@ -1,15 +1,17 @@
 import BertAPI.settings
-import torch
-from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer
+import BertAPI.API.admin as BertAPIAdmin
+#import torch
+#from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer
 
 
 #BERT-MODEL-PATH-PREDICT
-config = AutoConfig.from_pretrained(BertAPI.settings.MODEL_CONFIG_PATH)
-tokenizer = AutoTokenizer.from_pretrained(BertAPI.settings.MODEL_TOKENIZER_PATH, config=config)
-model = AutoModelForSequenceClassification.from_pretrained(BertAPI.settings.MODEL_PATH, config=config)
+#config = AutoConfig.from_pretrained(BertAPI.settings.MODEL_CONFIG_PATH)
+#tokenizer = AutoTokenizer.from_pretrained(BertAPI.settings.MODEL_TOKENIZER_PATH, config=config)
+#model = AutoModelForSequenceClassification.from_pretrained(BertAPI.settings.MODEL_PATH, config=config)
 
 def predict(input):
 
+    """
     inputs = tokenizer(input, return_tensors="pt")
 
     outputs = model(**inputs)
@@ -19,6 +21,11 @@ def predict(input):
         return "Positive"
     else:
         return "Negative"
+    """
+    print("sa")
+
+    
+    
 
 #URL-DECODER
 def decode_url(text):

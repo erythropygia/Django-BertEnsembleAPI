@@ -20,11 +20,13 @@ from django.urls import include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 
-
-from BertAPI.API.views import process_text
-
+#process_text and index page function url
+from BertAPI.API import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('admin/', admin.site.urls),
-    path('process/', process_text, name='process')
+    path('process/', views.process_text, name='process'),
+    path('userdetails/', auth_views.LoginView.as_view(template_name='userdetails.html'), name='userdetails'),
 ]

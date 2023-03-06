@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'BertAPI.API',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'BertAPI.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['./templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,3 +144,6 @@ REST_FRAMEWORK = {
 MODEL_CONFIG_PATH = 'model_data/config.json'
 MODEL_TOKENIZER_PATH = 'model_data'
 MODEL_PATH = 'model_data/pytorch_model.bin'
+
+#SUCCESS-LOGIN-REDIRECT-LINK
+LOGIN_REDIRECT_URL = '/userdetails'

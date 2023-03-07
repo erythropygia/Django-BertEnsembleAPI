@@ -1,5 +1,17 @@
 from django.shortcuts import render
 
+#LOGIN-REQUESTS
+#####################################################################################################################
+
+from django.contrib.auth.decorators import login_required
+@login_required(login_url='/')
+def user_details(request):
+    user = request.user
+    auth_token = user.auth_token.key if hasattr(user, 'auth_token') else None
+    context = {'user': user , 'auth_token': auth_token}
+    return render(request, 'userdetails.html', context)
+#####################################################################################################################
+
 
 #APIREQUESTS
 #####################################################################################################################

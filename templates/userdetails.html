@@ -22,7 +22,18 @@
 <body>
     {% block content %}
     {% endblock %}
-    <p>hoş geldin </p>
+    <h1>Welcome, {{ user.username }}!</h1>
+    {% if user.email %}
+    <p>Your email address is: {{ user.email }}</p>
+    {% else %}
+    <p>Your email address is: You don't have a email address yet.</p>
+    {% endif %}
+    {% if auth_token %}
+    <p>Your API token is: {{ auth_token }}</p>
+    {% else %}
+    <p>Your API token is: You don't have an auth token yet.</p>
+    {% endif %}
+        
 </body>
 
 </html>

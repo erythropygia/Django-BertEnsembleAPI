@@ -4,7 +4,7 @@ from django.shortcuts import render,redirect
 #####################################################################################################################
 
 from django.contrib.auth.decorators import login_required
-@login_required(login_url='/')
+@login_required(login_url='/login')
 def user_details(request):
     user = request.user
     auth_token = user.auth_token.key if hasattr(user, 'auth_token') else None
@@ -17,6 +17,9 @@ def user_details(request):
 from .forms import SignUpForm
 from django.contrib.auth import login as auth_login
 from rest_framework.authtoken.models import Token
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 def signup(request):
     if request.method == 'POST':
@@ -24,8 +27,11 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             token = Token.objects.get(user=user)
-            # Kullanıcının kaydedildiği sayfaya yönlendirme
+            messages.success(request, 'Success! Please login and use Cer-NLP API!')
             return redirect('/login')
+            
+        else:
+            messages.error(request, 'Please check your informations.')
     else:
         form = SignUpForm()
     return render(request, 'login.html', {'form': form})

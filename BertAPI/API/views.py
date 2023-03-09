@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 #LOGIN-REQUESTS
 #####################################################################################################################
@@ -10,6 +10,25 @@ def user_details(request):
     auth_token = user.auth_token.key if hasattr(user, 'auth_token') else None
     context = {'user': user , 'auth_token': auth_token}
     return render(request, 'userdetails.html', context)
+#####################################################################################################################
+
+#SIGN-UP-REQUESTS
+#####################################################################################################################
+from .forms import SignUpForm
+from django.contrib.auth import login as auth_login
+from rest_framework.authtoken.models import Token
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            token = Token.objects.get(user=user)
+            # Kullanıcının kaydedildiği sayfaya yönlendirme
+            return redirect('/login')
+    else:
+        form = SignUpForm()
+    return render(request, 'login.html', {'form': form})
 #####################################################################################################################
 
 

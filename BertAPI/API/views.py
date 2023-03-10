@@ -8,7 +8,10 @@ from django.contrib.auth.decorators import login_required
 def user_details(request):
     user = request.user
     auth_token = user.auth_token.key if hasattr(user, 'auth_token') else None
-    context = {'user': user , 'auth_token': auth_token}
+    phone = user.phone if hasattr(user, 'phone') else None
+    usage_limit = user.usage_limit if hasattr(user, 'usage_limit') else None
+    usage_count = user.usage_count if hasattr(user, 'usage_count') else None
+    context = {'user': user, 'auth_token': auth_token, 'phone': phone, 'usage_limit': usage_limit, 'usage_count': usage_count}
     return render(request, 'userdetails.html', context)
 #####################################################################################################################
 

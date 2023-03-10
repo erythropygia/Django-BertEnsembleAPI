@@ -84,6 +84,7 @@
             <i class="bi bi-list mobile-nav-toggle"></i>
             {% else %}
             <li><a class="getstarted scrollto" href="/login">Login</a></li>
+            <li><a class="getstarted scrollto" href="/signup">Sign Up</a></li>
             {% endif %} 
           
       </nav><!-- .navbar -->
@@ -103,7 +104,7 @@
             {% if user.username %}
             <a href="/userdetails" class="btn-get-started scrollto">Try Cer-NLP API</a>
             {% else %}
-            <a href="/login" class="btn-get-started scrollto">Try Cer-NLP API</a>
+            <a href="/signup" class="btn-get-started scrollto">Try Cer-NLP API</a>
             {% endif %}
           </div>
         </div>
@@ -171,7 +172,7 @@
             {% if user.username %}
             <a href="/userdetails" class="btn-learn-more">Try Cer-NLP</a>
             {% else %}
-            <a href="/login" class="btn-learn-more">Try Cer-NLP</a>
+            <a href="/signup" class="btn-learn-more">Try Cer-NLP</a>
             {% endif %}
           
           </div>
@@ -269,7 +270,7 @@
               {% if user.username %}
               <a href="/userdetails" class="buy-btn">Get Started</a>
               {% else %}
-              <a href="/login" class="buy-btn">Get Started</a>
+              <a href="/signup" class="buy-btn">Get Started</a>
               {% endif %}
             </div>
           </div>
@@ -441,7 +442,7 @@
               {% if user.username %}
               <li><i class="bx bx-chevron-right"></i> <a href="/userdetails">Try Cer-NLP API</a></li>
               {% else %}
-              <li><i class="bx bx-chevron-right"></i> <a href="/login">Try Cer-NLP API</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/signup">Try Cer-NLP API</a></li>
               {% endif %}
             </ul>
           </div>

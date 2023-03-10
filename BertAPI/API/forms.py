@@ -7,7 +7,7 @@ from rest_framework.authtoken.models import Token
 ###SIGN-UP-FORM###
 class SignUpForm(forms.ModelForm):
     email = forms.EmailField(max_length=254, required=True, help_text='Gerekli. E-posta adresinizi girin.')
-    phone = forms.CharField(max_length=20, required=True, help_text='Gerekli. Telefon numaranızı girin.')
+    phone = forms.CharField(max_length=10, required=True, help_text='Gerekli. Telefon numaranızı girin.')
     password = forms.CharField(widget=forms.PasswordInput(), help_text='Parolanızı girin.')
 
     class Meta:
@@ -17,6 +17,8 @@ class SignUpForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password'])
+        user.phone = self.cleaned_data['phone']
+
         if commit:
             user.save()
             # API anahtarı oluşturma

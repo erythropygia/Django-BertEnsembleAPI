@@ -28,6 +28,9 @@
 
   <!-- Main CSS File -->
   <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" >
+
+
+
 </head>
 
 <body>
@@ -42,10 +45,10 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="/#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="/#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="/#about">About</a></li>
           <li><a class="nav-link scrollto" href="/#services">Skills</a></li>
-          <li><a class="nav-link   scrollto" href="/#pricing">Pricing</a></li>
+          <li><a class="nav-link scrollto" href="/#pricing">Pricing</a></li>
           <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
           <li class="dropdown"><a href="#"><span>Language</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
@@ -94,46 +97,118 @@
       </div>
     </section><!-- End Breadcrumbs -->
 
-    <section class="inner-page">
-      <div class="container">
-        <p>
-          {% block content %}
-          {% endblock %}
-          <h1>Welcome, {{ user.username }}!</h1>
-          {% if user.email %}
-          <p>Your email address is: {{ user.email }}</p>
-          {% else %}
-          <p>Your email address is: You don't have a email address yet.</p>
-          {% endif %}
-          {% if auth_token %}
-          <p>Your API token is: {{ auth_token }}</p>
-          {% else %}
-          <p>Your API token is: You don't have an auth token yet.</p>
-          {% endif %}
-              
-        </p>
+    {% block content %}
+       <!-- ======= User Panel Section ======= -->
+    <section class="pricing" style="margin-top:-3%;">
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+
+        <center>
+          <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
+            <div class="box featured">
+              <h3>Welcome, {{ user.username }}!</h3>
+
+              {% if user.email %}
+              <h4><span>{{ user.email }}</span></h4>
+              {% else %}
+              <h4><span>No Email</span></h4>
+              {% endif %}
+
+              {% if auth_token %}
+              <h3><span>Your API Token:</span></h3>
+              <center><h4><span style="font-size: 14px; margin-top:-3%;">{{ auth_token }}</span></h4></center>
+              {% else %}
+              <h4><span>No Token</span></h4>
+              {% endif %}
+
+              <ul>
+                <li><i class="bx bx-check"></i> Requests: {{ usage_limit }}</li>
+                <li><i class="bx bx-check"></i> Requests used this period: {{ usage_count}}</li>
+              </ul>
+            
+              <a href="#examples" class="buy-btn">Examples</a>
+            </div>
+          </div>
+        </center> 
+        </div>
       </div>
-    </section>
+    </section> <!-- User Panel Finish-->
+    {% endblock %}  
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us section-bg">
+      <div id="examples" class="container-fluid" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+
+            <div class="content">
+              <h3 style="margin-top:-8%;">Cer-NLP <strong>API Request Examples.</strong></h3>
+            </div>
+
+            <div class="accordion-list">
+              <ul>
+                <li>
+                  <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>Python</span><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
+                    <p>
+                      import requests
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>Java</span><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
+                    <p>
+                      import requests;
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>JavaScript</span><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+                    <p>
+                      import requests;
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" data-aos="zoom-in" data-aos-delay="150">
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="form-group" style="max-width:600px; margin-top:4%;">
+                <h3 style="color:#c27e31;"><strong>Try API</strong></h3>
+                <textarea class="form-control" name="message" rows="8" required></textarea>
+              </div>
+              <!--
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              -->
+              <div class="text-center" style="margin:2%;">
+                <button type="submit" style="margin-left:-20%;">Request!</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Why Us Section -->
+
+    
 
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
-
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <h4>Stay up to date with Cer-NLP improvements</h4>
-            <p>Subsucribe to our Newsletter!</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="footer-top">
       <div class="container">
         <div class="row">

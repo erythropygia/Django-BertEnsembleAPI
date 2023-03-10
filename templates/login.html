@@ -65,7 +65,7 @@
         {% block login_content %}
             <div class="form-container  sign-up-container" id="sign__up">
                 
-                <form class="form" method="post">
+                <form class="form" method="post" action="{% url 'login' %}">
                     <div class="header">Login</div>
                     <div class="button-input-group">
                         <div class="group input-group"> 
@@ -154,5 +154,17 @@
     </body>
 
     <script src="{% static 'assets/js/login_page.js'%}"></script>
+
+    
+    <script>
+        var pathname = window.location.pathname;
+        window.onload = function() {
+            if (pathname == '/login/') {
+                document.getElementById('signUp').click();
+                setTimeout(10000);
+            }
+        }
+    </script>
+    
 
 </html>

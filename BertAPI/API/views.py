@@ -64,7 +64,6 @@ def process_text(request):
         if text == '':
             result = "Text parameter is null."
         else: 
-            print(text)
             result = BertFunctions.predict(text)
         
         return Response({'text':BertFunctions.decode_url(text),'result': result}, status=status.HTTP_200_OK)

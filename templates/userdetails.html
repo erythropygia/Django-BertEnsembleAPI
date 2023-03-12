@@ -146,7 +146,7 @@
             <div class="content">
               <h3 style="margin-top:-8%;">Cer-NLP <strong>API Request Examples.</strong></h3>
             </div>
-
+            
             <div class="accordion-list">
               <ul>
                 <li>
@@ -181,26 +181,21 @@
           </div>
 
           <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" data-aos="zoom-in" data-aos-delay="150">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="form-group" style="max-width:600px; margin-top:4%;">
+            
+            <form>
+              <div class="form-group" style="margin-top:4%; max-width: 600px;">
                 <h3 style="color:#c27e31;"><strong>Try API</strong></h3>
-                <textarea class="form-control" name="message" rows="8" required></textarea>
+                <textarea class="form-control" type="text" id="input-text" name="input-text"" rows="8" required></textarea>
+                <br>
+                <button type="button" id="process-button" onclick="processText('{{ auth_token }}')" style="margin-left:43%;">Try API!</button>
               </div>
-              <!--
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              -->
-              <div class="text-center" style="margin:2%;">
-                <button type="submit" style="margin-left:-20%;">Request!</button>
-              </div>
+                
             </form>
-          </div>
-        </div>
+            <br>
+            <p id="result"></p>
 
-      </div>
+          </div>
+      
     </section><!-- End Why Us Section -->
 
     
@@ -274,6 +269,11 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="{% static 'assets/js/request.js' %}"></script>
+    
+
+  </script>
+
 
 </body>
 

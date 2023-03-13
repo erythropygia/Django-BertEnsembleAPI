@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
+from django.core.exceptions import ValidationError
 
 ###SIGN-UP-FORM###
 class SignUpForm(forms.ModelForm):
@@ -14,6 +15,21 @@ class SignUpForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'phone', 'password')
 
+    #This function controlled a same username and email register request
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        username = cleaned_data.get('username')
+
+        if email and User.objects.filter(email=email).exists():
+            self.add_error('email', 'The email is already taken. Please try another one.')
+
+        if username and User.objects.filter(username=username).exists():
+            self.add_error('username', 'The username is already taken. Please try another one.')
+
+        return cleaned_data
+
+    
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password'])

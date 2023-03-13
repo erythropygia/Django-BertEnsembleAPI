@@ -30,14 +30,26 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             token = Token.objects.get(user=user)
-            messages.success(request, 'Success! Please login and use Cer-NLP API!')
+            messages.success(request, 'Success! Please log in and use Cer-NLP API!')
             return redirect('/login')
-            
         else:
-            messages.error(request, 'Please check your informations.')
+            errors = form.errors.as_data()
+            for error_field, error_msgs in errors.items():
+                if(len(errors)<2):
+                    for error_msg in error_msgs:
+                        if error_field == 'email':
+                            messages.error(request, 'The email is already taken.')
+                        elif error_field == 'username':
+                            messages.error(request, 'The username is already taken.')
+                        else:
+                            messages.error(request, error_msg)
+                else:
+                    messages.error(request, 'Please check your informations.')
+                    break
     else:
         form = SignUpForm()
     return render(request, 'login.html', {'form': form})
+
 #####################################################################################################################
 
 

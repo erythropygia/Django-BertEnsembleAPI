@@ -9,7 +9,7 @@ from rest_framework.authtoken.models import Token
 #CREATE-TOKEN-WHEN-CREATE-USER
 
 class AdminPanel(UserAdmin):
-    list_display = ('username', 'email', 'phone', 'usage_limit', 'usage_count', 'token')
+    list_display = ('username', 'email', 'phone', 'usage_limit', 'usage', 'token', 'is_staff')
 
     def token(self, obj):
         try:
@@ -24,7 +24,7 @@ class AdminPanel(UserAdmin):
     def usage_limit(self, obj):
         return 100
 
-    def usage_count(self, obj):
+    def usage(self, obj):
         return obj.usage_rights if hasattr(obj, 'usage_rights') else "-"
 
     def save_model(self, request, obj, form, change):

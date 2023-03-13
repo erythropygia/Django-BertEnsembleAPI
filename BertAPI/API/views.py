@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 
-#LOGIN-REQUESTS
+#USER-DETAILS-REQUESTS
 #####################################################################################################################
 
 from django.contrib.auth.decorators import login_required

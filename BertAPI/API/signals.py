@@ -8,4 +8,6 @@ from rest_framework.authtoken.models import Token
 def create_auth_tokens(sender, **kwargs):
     for user in User.objects.all():
         Token.objects.get_or_create(user=user)
-    
+
+
+

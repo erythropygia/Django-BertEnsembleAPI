@@ -177,23 +177,19 @@
                 </li>
               </ul>
             </div>
-
           </div>
 
           <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" data-aos="zoom-in" data-aos-delay="150">
-            
             <form>
               <div class="form-group" style="margin-top:4%; max-width: 600px;">
                 <h3 style="color:#c27e31;"><strong>Try API</strong></h3>
-                <textarea class="form-control" type="text" id="input-text" name="input-text"" rows="8" required></textarea>
+                <textarea class="form-control" type="text" id="input-text-process" name="input-text-process" rows="8" required style="resize:none;"></textarea>
                 <br>
-                <button type="button" id="process-button" onclick="processText('{{ auth_token }}')" style="margin-left:43%;">Try API!</button>
+                <button type="button" id="process-button" onclick="processText('{{ auth_token }}')">Try API!</button>
+                <br>
+                <center><strong><h5 id="result" style="color:#c27e31"></h5></strong></center>
               </div>
-                
             </form>
-            <br>
-            <p id="result"></p>
-
           </div>
       
     </section><!-- End Why Us Section -->

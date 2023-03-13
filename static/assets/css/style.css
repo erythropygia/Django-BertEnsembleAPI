@@ -1620,3 +1620,25 @@ section {
 
 }
 
+
+/* API REQUEST BUTTON */
+
+#process-button{
+  display: inline-block;
+  padding: 12px 35px;
+  border-radius: 50px;
+  transition: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: 0.3s;
+  background: #cc8534;  
+  color: #fff;
+  border: 2px solid #fccc95;
+}
+#process-button:hover {
+  background: #ff8800;
+}
+
+#input-text-process:focus{
+  border: 3px solid #ff8800;
+}

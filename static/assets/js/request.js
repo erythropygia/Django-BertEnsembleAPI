@@ -1,5 +1,5 @@
 function processText(auth_token) {
-  var inputText = document.getElementById("input-text").value;
+  var inputText = document.getElementById("input-text-process").value;
   var processButton = document.getElementById("process-button");
 
   // disable the button to prevent further processing

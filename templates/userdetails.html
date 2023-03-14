@@ -121,9 +121,14 @@
               <h4><span>No Token</span></h4>
               {% endif %}
 
+            
               <ul>
+                {% if usage_limit %}
                 <li><i class="bx bx-check"></i> Requests: {{ usage_limit }}</li>
-                <li><i class="bx bx-check"></i> Requests used this period: {{ usage_count}}</li>
+                {% endif %}
+                {% if usage_count %}
+                <li><i class="bx bx-check"></i> Requests used this period: {{ usage_count }}</li>
+                {% endif %}
               </ul>
             
               <a href="#examples" class="buy-btn">Examples</a>

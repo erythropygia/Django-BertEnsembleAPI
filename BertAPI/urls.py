@@ -33,4 +33,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('process/', views.process_text, name='process'),
     path('userdetails/', views.user_details, name='userdetails'),
+    
 ]

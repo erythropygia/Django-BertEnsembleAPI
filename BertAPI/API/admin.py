@@ -4,12 +4,16 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+from django.core.cache import cache
 
+#API-REQUEST-LIBRARY
+from datetime import datetime, timedelta
+from .models import UserUsage
 
 #CREATE-TOKEN-WHEN-CREATE-USER
 
 class AdminPanel(UserAdmin):
-    list_display = ('username', 'email', 'phone', 'usage_limit', 'usage', 'token', 'is_staff')
+    list_display = ('username', 'email', 'phone', 'usage_count' , 'usage_limit', 'token', 'is_staff')
 
     def token(self, obj):
         try:
@@ -23,9 +27,13 @@ class AdminPanel(UserAdmin):
 
     def usage_limit(self, obj):
         return 100
+    
+    def usage_count(self, obj):
+        now = datetime.now()
+        month_start = datetime(now.year, now.month, 1)
+        usage = UserUsage.objects.filter(user=obj, created__gte=month_start).count()
+        return usage
 
-    def usage(self, obj):
-        return obj.usage_rights if hasattr(obj, 'usage_rights') else "-"
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)

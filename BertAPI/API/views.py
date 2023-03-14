@@ -7,10 +7,12 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/login')
 def user_details(request):
     user = request.user
-    auth_token = user.auth_token.key if hasattr(user, 'auth_token') else None
-    phone = user.phone if hasattr(user, 'phone') else None
-    usage_limit = user.usage_limit if hasattr(user, 'usage_limit') else "-"
-    usage_count = user.usage_count if hasattr(user, 'usage_count') else "-"
+    #auth_token = user.auth_token.key if hasattr(user, 'auth_token') else None
+    auth_token = AdminPanel.token(user,user)
+    phone = AdminPanel.phone(user,user)
+    usage_limit = AdminPanel.usage_limit(user,user)
+    usage_count = AdminPanel.usage_count(user,user)
+    print(usage_count)
     context = {'user': user, 'auth_token': auth_token, 'phone': phone, 'usage_limit': usage_limit, 'usage_count': usage_count}
     return render(request, 'userdetails.html', context)
 #####################################################################################################################
@@ -78,32 +80,32 @@ from rest_framework.decorators import api_view
 from datetime import datetime, timedelta
 from .models import UserUsage
 
+def check_usage_limit(request):
+    now = datetime.now()
+    month_start = datetime(now.year, now.month, 1)
+    usage = UserUsage.objects.filter(user=request.user, created__gte=month_start).count()
+    if usage >= AdminPanel.usage_limit(request.user,request.user):
+        return False
+    UserUsage.objects.create(user=request.user)
+    return True
+
 @api_view(['GET'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
 @throttle_classes([UserThrottle])
 def process_text(request):
     if request.user.is_authenticated:
-        # Kullanıcının sorgu hakkı sayısını kontrol edin
-        if request.user.is_authenticated and request.user.is_anonymous == False:
-            now = datetime.now()
-            month_start = datetime(now.year, now.month, 1)
-            usage = UserUsage.objects.filter(user=request.user, created__gte=month_start).count()
-            if usage >= 100:
-                return Response({'error': 'You have exceeded your monthly usage limit.'}, status=status.HTTP_429_TOO_MANY_REQUESTS)
-            # Sorgu hakkı sayısını arttırın
-            UserUsage.objects.create(user=request.user)
-            
+        if check_usage_limit(request):
             text = request.GET.get('text', '') 
             if text == '':
                 result = "Text parameter is null."
             else: 
                 result = BertFunctions.predict(text)
-            
             return Response({'text':BertFunctions.decode_url(text),'result': result}, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'You have exceeded your monthly usage limit.'}, status=status.HTTP_429_TOO_MANY_REQUESTS)
     else:
         return Response({'error': 'Authentication credentials were not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
-
 
 #####################################################################################################################
 

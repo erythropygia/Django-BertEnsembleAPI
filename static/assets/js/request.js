@@ -8,17 +8,17 @@ function processText(auth_token) {
   var xhr = new XMLHttpRequest();
   xhr.open("GET", "/process?text=" + inputText);
   xhr.setRequestHeader("Authorization", "Token "+auth_token);
-  xhr.onload = function () {
-    if (xhr.status === 200) {
-      var response = JSON.parse(xhr.responseText);
-      var result = response.result;
-      document.getElementById("result").innerHTML = "Result: " + result;
-    } else {
-      console.log("Error:", xhr.statusText);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+        var result = response.result;
+        document.getElementById("result").innerHTML = "Result: " + result;
+      } else {
+        console.log("Error:", xhr.statusText);
+        document.getElementById("result").innerHTML = "Error: " + xhr.statusText;
+      }
     }
   };
-  xhr.onerror = function () {
-    console.log("Error:", xhr.statusText);
-  };
   xhr.send();
-  }
+}

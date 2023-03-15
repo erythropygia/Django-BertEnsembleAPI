@@ -107,11 +107,17 @@
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
             <div class="box featured">
               <h3>Welcome, {{ user.username }}!</h3>
-
+    
               {% if user.email %}
               <h4><span>{{ user.email }}</span></h4>
               {% else %}
               <h4><span>No Email</span></h4>
+              {% endif %}
+
+              {% if user.last_name %}
+              <h4><span>+90{{user.last_name}}</span></h4>
+              {% else %}
+              <h4><span>No Telephone Number</span></h4>
               {% endif %}
 
               {% if auth_token %}
@@ -128,6 +134,8 @@
                 {% endif %}
                 {% if usage_count %}
                 <li><i class="bx bx-check"></i> Requests used this period: {{ usage_count }}</li>
+                {% else %}
+                <li><i class="bx bx-check"></i> Requests used this period: 0</li>
                 {% endif %}
               </ul>
             

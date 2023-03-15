@@ -143,7 +143,6 @@ REST_FRAMEWORK = {
     
 }
 
-
 #MODEL PARAMETERS
 MODEL_CONFIG_PATH = 'model_data/config.json'
 MODEL_TOKENIZER_PATH = 'model_data'

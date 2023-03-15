@@ -9,10 +9,9 @@ def user_details(request):
     user = request.user
     #auth_token = user.auth_token.key if hasattr(user, 'auth_token') else None
     auth_token = AdminPanel.token(user,user)
-    phone = AdminPanel.phone(user,user)
+    phone = AdminPanel.telephone(user,user)
     usage_limit = AdminPanel.usage_limit(user,user)
     usage_count = AdminPanel.usage_count(user,user)
-    print(usage_count)
     context = {'user': user, 'auth_token': auth_token, 'phone': phone, 'usage_limit': usage_limit, 'usage_count': usage_count}
     return render(request, 'userdetails.html', context)
 #####################################################################################################################
@@ -36,6 +35,7 @@ def signup(request):
             return redirect('/login')
         else:
             errors = form.errors.as_data()
+            print(errors)
             for error_field, error_msgs in errors.items():
                 if(len(errors)<2):
                     for error_msg in error_msgs:
@@ -43,6 +43,9 @@ def signup(request):
                             messages.error(request, 'The email is already taken.')
                         elif error_field == 'username':
                             messages.error(request, 'The username is already taken.')
+                        elif error_field == 'last_name':
+                            messages.error(request, 'The phone number is already taken.')
+
                         else:
                             messages.error(request, error_msg)
                 else:

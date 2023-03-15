@@ -13,7 +13,10 @@ from .models import UserUsage
 #CREATE-TOKEN-WHEN-CREATE-USER
 
 class AdminPanel(UserAdmin):
-    list_display = ('username', 'email', 'phone', 'usage_count' , 'usage_limit', 'token', 'is_staff')
+    list_display = ('username', 'email', 'telephone', 'usage_count' , 'usage_limit', 'token', 'is_staff', 'is_superuser')
+
+    def telephone(self, obj):
+        return obj.last_name
 
     def token(self, obj):
         try:
@@ -21,10 +24,7 @@ class AdminPanel(UserAdmin):
             return token.key
         except Token.DoesNotExist:
             return "-"
-
-    def phone(self, obj):
-        return obj.phone if hasattr(obj, 'phone') and obj.phone is not None else "-"
-
+    
     def usage_limit(self, obj):
         return 100
     

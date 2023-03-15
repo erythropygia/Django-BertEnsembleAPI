@@ -31,7 +31,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
-    path('process/', views.process_text, name='process'),
+    path('process/', views.process_v1, name='process'),
     path('userdetails/', views.user_details, name='userdetails'),
     
 ]

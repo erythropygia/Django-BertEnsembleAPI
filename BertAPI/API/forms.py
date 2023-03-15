@@ -1,12 +1,12 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+
+#SignUp form libraries
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
-from django.core.exceptions import ValidationError
 
     
-###SIGN-UP-FORM###
+#SignUp form
 class SignUpForm(forms.ModelForm):
     email = forms.EmailField(max_length=254, required=True, help_text='Required. Please enter Email address.')
     password = forms.CharField(widget=forms.PasswordInput(), help_text='Please enter Password')

@@ -1,9 +1,50 @@
 from django.shortcuts import render,redirect
 
-#USER-DETAILS-REQUESTS
-#####################################################################################################################
+#User details page libraries
 from .admin import AdminPanel
 from django.contrib.auth.decorators import login_required
+
+#Signup form and errors libraries
+from .forms import SignUpForm
+from django.contrib.auth import login as auth_login
+from rest_framework.authtoken.models import Token
+from django.contrib import messages
+
+#API token and authenticated libraries for process_text
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, authentication_classes, permission_classes, throttle_classes
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
+from datetime import datetime, timedelta
+from .models import UserUsage
+
+#Model requests libraries
+from django.http import JsonResponse
+import BertAPI.API.functions as BertFunctions
+
+#Request count calculator libraries
+from rest_framework.throttling import UserRateThrottle
+
+
+
+
+#Request count class and usage limit controller function
+class UserThrottle(UserRateThrottle):
+    scope = 'user'
+
+def check_usage_limit(request):
+    now = datetime.now()
+    month_start = datetime(now.year, now.month, 1)
+    usage = UserUsage.objects.filter(user=request.user, created__gte=month_start).count()
+    if usage >= AdminPanel.usage_limit(request.user,request.user):
+        return False
+    UserUsage.objects.create(user=request.user)
+    return True
+
+
+#User details page functions
 @login_required(login_url='/login')
 def user_details(request):
     user = request.user
@@ -14,17 +55,9 @@ def user_details(request):
     usage_count = AdminPanel.usage_count(user,user)
     context = {'user': user, 'auth_token': auth_token, 'phone': phone, 'usage_limit': usage_limit, 'usage_count': usage_count}
     return render(request, 'userdetails.html', context)
-#####################################################################################################################
 
-#SIGN-UP-REQUESTS
-#####################################################################################################################
-from .forms import SignUpForm
-from django.contrib.auth import login as auth_login
-from rest_framework.authtoken.models import Token
-from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 
+#Signup form and errors functions
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -55,48 +88,15 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'login.html', {'form': form})
 
-#####################################################################################################################
 
-
-#REQUEST-CALCULATOR
-#############################################################################
-from rest_framework.throttling import UserRateThrottle
-
-class UserThrottle(UserRateThrottle):
-    scope = 'user'
-#############################################################################
-
-
-#APIREQUESTS
-#####################################################################################################################
-#BertModelRequest
-from django.http import JsonResponse
-import BertAPI.API.functions as BertFunctions
-
-#API-KEY
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view, authentication_classes, permission_classes, throttle_classes
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.decorators import api_view
-from datetime import datetime, timedelta
-from .models import UserUsage
-
-def check_usage_limit(request):
-    now = datetime.now()
-    month_start = datetime(now.year, now.month, 1)
-    usage = UserUsage.objects.filter(user=request.user, created__gte=month_start).count()
-    if usage >= AdminPanel.usage_limit(request.user,request.user):
-        return False
-    UserUsage.objects.create(user=request.user)
-    return True
+#API request for input text
 
 @api_view(['GET'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
 @throttle_classes([UserThrottle])
-def process_text(request):
+def process_v1(request):
+
     if request.user.is_authenticated:
         if check_usage_limit(request):
             text = request.GET.get('text', '') 
@@ -110,5 +110,5 @@ def process_text(request):
     else:
         return Response({'error': 'Authentication credentials were not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
 
-#####################################################################################################################
+
 

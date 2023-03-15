@@ -130,10 +130,10 @@
             
               <ul>
                 {% if usage_limit %}
-                <li><i class="bx bx-check"></i> Requests: {{ usage_limit }}</li>
+                <li><i class="bx bx-check"></i> Requests: {{ usage_limit }} / Month</li>
                 {% endif %}
                 {% if usage_count %}
-                <li><i class="bx bx-check"></i> Requests used this period: {{ usage_count }}</li>
+                <li><i class="bx bx-check"></i> Requests used this period: {{ usage_count }} / {{ usage_limit }}</li>
                 {% else %}
                 <li><i class="bx bx-check"></i> Requests used this period: 0</li>
                 {% endif %}

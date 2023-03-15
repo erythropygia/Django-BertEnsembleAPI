@@ -52,8 +52,3 @@ admin.site.register(User, AdminPanel)
 
 
 
-"""
-Reset usage_count
-user = User.objects.get(username='admin')
-AdminPanel.reset_usage_count(user)
-"""

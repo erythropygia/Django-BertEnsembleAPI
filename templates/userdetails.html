@@ -163,29 +163,111 @@
             <div class="accordion-list">
               <ul>
                 <li>
-                  <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>Python</span><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                  <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
-                    <p>
+                  <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#accordion-list-1"  class="collapsed"><span>Python</span><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-1" class="collapse" data-bs-parent=".accordion-list">
+                    <p><pre><b>
                       import requests
-                    </p>
+
+                        # API URL
+                        url = 'http://localhost:8000/process'
+
+                        for i in range (1001):
+                            # Request data
+                            data = {
+                                'text': 'Send text here'
+                            }
+
+                            # Request headers
+                            headers = {
+                                'Authorization': 'Token YOUR_TOKEN_HERE'
+                            }
+
+                            # Request
+                            response = requests.get(url, params=data, headers=headers)
+
+                            # Response
+                            if response.status_code == 200:
+                                result = response.json()['result']
+                                print('Result:', result)
+                            else:
+                                print('Error:', response.text)
+                      </b></pre></p>
                   </div>
                 </li>
 
                 <li>
                   <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>Java</span><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                   <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
-                    <p>
-                      import requests;
-                    </p>
+                    <p><pre><b>
+                      String url = "http://localhost:8000/process";
+                      String inputText = "Send text here.";
+                      String auth_token = "YOUR_TOKEN_HERE";
+                      StringBuilder builder = new StringBuilder();
+                          
+                      for (int i = 0; i < inputText.length(); i++) {
+                        
+                          if (inputText.charAt(i) == ' ') {
+                            
+                                      builder.append("%20");
+                                      
+                                  } else {
+                                    
+                                      builder.append(inputText.charAt(i));
+                                    
+                                  }
+                              }
+                              
+                              String convertedString = builder.toString();
+                          
+
+                      try {
+                          URL urlObj = new URL(url + "?text=" + convertedString);
+                          HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
+                          conn.setRequestMethod("GET");
+                          conn.setRequestProperty("Authorization", "Token " + auth_token);
+
+                          if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                              BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                              String response = in.readLine();
+                              String result = response.split("\"result\":")[1].split("}")[0];
+                              System.out.println("Result: " + result);
+                              in.close();
+                          } else {
+                              System.out.println("Error: " + conn.getResponseMessage());
+                          }
+                              conn.disconnect();
+                          } catch (Exception e) {
+                              System.out.println("Error: " + e.getMessage());
+                          }
+                    </b></pre></p>
                   </div>
                 </li>
 
                 <li>
                   <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>JavaScript</span><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                   <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
-                    <p>
-                      import requests;
-                    </p>
+                    <p><pre><b>
+                        let url = 'http://localhost:8000/process';
+                        let inputText = 'Send text here.';
+                        let auth_token = 'YOUR_TOKEN_HERE';
+                        
+                        let xhr = new XMLHttpRequest();
+                        xhr.open("GET", `${url}?text=${inputText}`);
+                        xhr.setRequestHeader("Authorization", `Token ${auth_token}`);
+                        xhr.onreadystatechange = function () {
+                          if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                  let response = JSON.parse(xhr.responseText);
+                                  let result = response.result;
+                                  document.getElementById("result").innerHTML = "Result: " + result;
+                            } else {
+                                  console.log("Error:", xhr.statusText);
+                                  document.getElementById("result").innerHTML = "Error: " + xhr.statusText;
+                            }
+                          }
+                        };
+                        xhr.send();                      
+                      </b></pre></p>
                   </div>
                 </li>
               </ul>
@@ -200,7 +282,7 @@
                 <br>
                 <button type="button" id="process-button" onclick="processText('{{ auth_token }}')">Try API!</button>
                 <br>
-                <center><strong><h5 id="result" style="color:#c27e31"></h5></strong></center>
+                <center><strong><h5 id="result" style="color:#c27e31;"></h5></strong></center>
               </div>
             </form>
           </div>

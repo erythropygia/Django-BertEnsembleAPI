@@ -5,3 +5,4 @@ requests
 djangorestframework
 #transformers==4.26.1
 #torch==1.13.1
+#control

@@ -23,6 +23,7 @@ from .models import UserUsage
 #Model requests libraries
 from django.http import JsonResponse
 import BertAPI.API.functions as BertFunctions
+import json
 
 #Request count calculator libraries
 from rest_framework.throttling import UserRateThrottle
@@ -101,10 +102,12 @@ def process_v1(request):
         if check_usage_limit(request):
             text = request.GET.get('text', '') 
             if text == '':
-                result = "Text parameter is null."
+                result = {
+                    "error_result" : "Text parameter is null."
+                }
+                return Response(result, status=status.HTTP_200_OK)
             else: 
-                result = BertFunctions.predict(text)
-            return Response({'text':BertFunctions.decode_url(text),'result': result}, status=status.HTTP_200_OK)
+                return Response(BertFunctions.predict(text), status=status.HTTP_200_OK)
         else:
             return Response({'error': 'You have exceeded your monthly usage limit.'}, status=status.HTTP_429_TOO_MANY_REQUESTS)
     else:

@@ -164,7 +164,7 @@
               <ul>
                 <li>
                   <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#accordion-list-1"  class="collapsed"><span>Python</span><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                  <div id="accordion-list-1" class="collapse" data-bs-parent=".accordion-list">
+                  <div id="accordion-list-1" class="collapse" data-bs-parent=".accordion-list" style="margin-left:-20%">
                     <p><pre><b>
                       import requests
 
@@ -197,7 +197,7 @@
 
                 <li>
                   <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>Java</span><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                  <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
+                  <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list" style="margin-left:-20%">
                     <p><pre><b>
                       String url = "http://localhost:8000/process";
                       String inputText = "Send text here.";
@@ -245,7 +245,7 @@
 
                 <li>
                   <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>JavaScript</span><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                  <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+                  <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list" style="margin-left:-20%">
                     <p><pre><b>
                         let url = 'http://localhost:8000/process';
                         let inputText = 'Send text here.';
@@ -282,7 +282,11 @@
                 <br>
                 <button type="button" id="process-button" onclick="processText('{{ auth_token }}')">Try API!</button>
                 <br>
-                <center><strong><h5 id="result" style="color:#c27e31;"></h5></strong></center>
+                <center><div id="result"></div></center>
+                <center><div id="result_sentiment"></div></center>
+                <center><div id="result_subject"></div></center>
+                <center><div id="result_summarize"></div></center>
+                <center><div id="result_ner"></div></center>
               </div>
             </form>
           </div>

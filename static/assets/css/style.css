@@ -1642,3 +1642,45 @@ section {
 #input-text-process:focus{
   border: 1px solid #ff8800;
 }
+
+
+.form-group #result_sentiment {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ff9f43;
+  color: #fff;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  display: none;
+}
+
+.form-group #result_subject {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #2ed573;
+  color: #fff;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  display: none;
+}
+
+.form-group #result_summarize {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #4b7bec;
+  color: #fff;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  display: none;
+}
+
+.form-group #result_ner {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #a78846;
+  color: #fff;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  display: none;
+  line-height: 1.5;
+}

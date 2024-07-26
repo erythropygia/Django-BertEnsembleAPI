@@ -2,6 +2,7 @@ from transformers import AutoModelForTokenClassification, AutoModelForSequenceCl
 
 import os
 import json
+"""
 nlpmodels_dir = os.path.join("NLPModels")
 
 # İlk olarak model ve tokenizer'ları yükleyin
@@ -102,3 +103,4 @@ def predict(text):
     }
 
     return ensemble_result
+"""

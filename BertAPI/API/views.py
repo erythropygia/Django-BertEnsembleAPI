@@ -107,7 +107,7 @@ def process_v1(request):
                 }
                 return Response(result, status=status.HTTP_200_OK)
             else: 
-                return Response(BertFunctions.predict(text), status=status.HTTP_200_OK)
+                return Response("BertFunctions.predict(text)", status=status.HTTP_200_OK)
         else:
             return Response({'error': 'You have exceeded your monthly usage limit.'}, status=status.HTTP_429_TOO_MANY_REQUESTS)
     else:
